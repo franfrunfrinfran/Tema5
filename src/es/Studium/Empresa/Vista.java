@@ -1,13 +1,15 @@
 package es.Studium.Empresa;
 
 import java.awt.Button;
-import java.awt.Dialog;
-import java.awt.FlowLayout;
+import java.awt.Choice;
+
 import java.awt.Frame;
 import java.awt.Label;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
+import java.awt.TextArea;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -20,28 +22,53 @@ public class Vista extends Frame implements WindowListener, ActionListener
 
 
 //Declara la Barra de Menú
-MenuBar mnbMenu = new MenuBar();
+	static Frame menuPrincipal = new Frame("Menú Principal");
+static MenuBar mnbMenu = new MenuBar();
 
 //Declarar las opciones de la barra de menú
 Menu mnEmpleados = new Menu("Empleados");
 //Declarar las opciones de empleados
-MenuItem mnNuevo = new MenuItem("Nuevo");
-MenuItem mnConsultar = new MenuItem("Consultar");
-MenuItem mnEliminar = new MenuItem ("Eliminar");
-MenuItem mnModificar = new MenuItem ("Modificar");
+static MenuItem mnNuevo = new MenuItem("Nuevo");
+static MenuItem mnConsultar = new MenuItem("Consultar");
+static MenuItem mnEliminar = new MenuItem ("Eliminar");
+static MenuItem mnModificar = new MenuItem ("Modificar");
 //Declarar un dialogo y un texto vacío
-Dialog d = new Dialog(this, "Aviso", true);
-Label texto = new Label("");
+/*Dialog d = new Dialog(this, "Aviso", true);
+Label texto = new Label("");*/
 //Crear botón para el dialog
-Button btnOK = new Button("OK");
+//Button btnOK = new Button("OK");
+
+//Frame NuevoEmpleado
+static Frame fNuevoEmpleado = new Frame("altasEmpleados");
+Label lblNombreEmpleado = new Label("Nombre");
+static TextField txtNombreEmpleado = new TextField(20);
+static Button btnAceptarNuevo = new Button("Aceptar");
+
+//Frame Modificacion
+static Frame fModificacionEmpleado = new Frame("modificacionEmpleados");
+Label lblModificacionEmpleado = new Label("Nombre a modificar");
+static Choice choModificacionEmpleado = new Choice();
+static TextField txtNombreModificar= new TextField(20);
+static Button btnConfirmarMod = new Button("Aceptar");
+static Button btnVolverMod = new Button("Volver");
+
+//Frame Consulta
+static Frame fConsultaEmpleado = new Frame("modificacionEmpleados");
+Label lblConsultaEmpleado = new Label("Nombre a consultar");
+static TextArea areaConsulta = new TextArea(10, 20);
+static Button btnVolverCon = new Button("Volver");
+
+//Frame eliminar
+static Frame fEliminarEmpleado = new Frame("eliminarEmpleados");
+Label lblEliminarEmpleado = new Label("Elige el empleado a eliminar:");
+static Choice choEliminarEmpleado = new Choice();
+static Button btnEliminarConfirmar = new Button("Confirmar");
+static Button btnEliminarVolver = new Button("Volver");
 
 public Vista()
 {
-	setLayout(new FlowLayout());
-	setTitle("Empleados");
-	this.setLocationRelativeTo(null);
-	//Establecer la barra de menú
-	setMenuBar(mnbMenu);
+
+	
 	//Añadir los submenus al menú
 	mnEmpleados.add(mnNuevo);
 	mnEmpleados.add(mnConsultar);
@@ -49,24 +76,35 @@ public Vista()
 	mnEmpleados.add(mnModificar);
 	//Añadir el menú a la barra de menú
 	mnbMenu.add(mnEmpleados);
+		
+	
+	//NuevoEmpleado
+
+	
+	fNuevoEmpleado.add(lblNombreEmpleado);
+	fNuevoEmpleado.add(txtNombreEmpleado);
+	fNuevoEmpleado.add(btnAceptarNuevo);
 	
 	
-	addWindowListener(this);
-	mnNuevo.addActionListener(this);
-	mnConsultar.addActionListener(this);
-	mnEliminar.addActionListener(this);
-	mnModificar.addActionListener(this);
-	setVisible(true);
-	setSize(300, 100);
-	//Creación del dialog
-	d.setLayout(new FlowLayout());
-	d.setSize(180, 150);
-	d.setLocationRelativeTo(null);
-	//Añadir el botón
-	d.add(btnOK);
-	//Para cerrar el dialog
-	d.addWindowListener(this);
-	btnOK.addActionListener(this);
+	
+	//Modificacion empleado
+	
+	fModificacionEmpleado.add(lblModificacionEmpleado);
+	fModificacionEmpleado.add(choModificacionEmpleado);
+	fModificacionEmpleado.add(txtNombreModificar);
+	fModificacionEmpleado.add(btnConfirmarMod);
+	fModificacionEmpleado.add(btnVolverMod);
+		
+	//Consulta del Empleado
+	fConsultaEmpleado.add(lblConsultaEmpleado);
+	fConsultaEmpleado.add(areaConsulta);
+	fConsultaEmpleado.add(btnVolverCon);
+	
+	//Frame eliminar
+	fEliminarEmpleado.add(lblEliminarEmpleado);
+	fEliminarEmpleado.add(choEliminarEmpleado);
+	fEliminarEmpleado.add(btnEliminarConfirmar);
+	fEliminarEmpleado.add(btnEliminarVolver);
 	
 }
 public static void main(String[] args)
@@ -76,94 +114,16 @@ public static void main(String[] args)
 
 
 @Override
-public void windowActivated(WindowEvent arg0) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void windowClosed(WindowEvent arg0) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void windowClosing(WindowEvent arg0) {
-	// TODO Auto-generated method stub
-	if(d.hasFocus())
-	{
-		d.setVisible(false);
-	}
-	else
-	{
-		System.exit(0);	
-	}
-	
-}
-
-@Override
-public void windowDeactivated(WindowEvent arg0) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void windowDeiconified(WindowEvent arg0) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void windowIconified(WindowEvent arg0) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void windowOpened(WindowEvent arg0) {
-	// TODO Auto-generated method stub
-	
-}
-@Override
+public void windowActivated(WindowEvent arg0) {}
+public void windowClosed(WindowEvent arg0) {}
+public void windowClosing(WindowEvent arg0) {}
+public void windowDeactivated(WindowEvent arg0) {}
+public void windowDeiconified(WindowEvent arg0) {}
+public void windowIconified(WindowEvent arg0) {}
+public void windowOpened(WindowEvent arg0) {}
 public void actionPerformed(ActionEvent ae) 
 {
-	// TODO Auto-generated method stub
-Object a;
-a= ae.getSource();
-if(a.equals(mnNuevo))
-{
-	texto.setText("Crear nuevo empleado");
-	if(a.equals(btnOK))
-	{
-		//Ir a la clase "Nuevo"
-	}
-}
-else if(a.equals(mnConsultar))
-{
-	texto.setText("Consultar un empleado");
-	if(a.equals(btnOK))
-	{
-		//Ir a la clase "Consulta"
-	}
-}
-else if(a.equals(mnEliminar))
-{
-	texto.setText("Eliminar un empleado");
-	if(a.equals(btnOK))
-	{
-		//Ir a la clase "Eliminar"
-	}
-}
-else if(a.equals(mnModificar))
-{
-	texto.setText("Modificar un empleado");
-	if(a.equals(btnOK))
-	{
-		//Ir a la clase "Modificar"
-	}
-}
-d.add(texto);
-d.setVisible(true);
+
 }
 
 }
