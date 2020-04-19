@@ -2,7 +2,7 @@ package es.Studium.Empresa;
 
 import java.awt.Button;
 import java.awt.Choice;
-
+import java.awt.Dialog;
 import java.awt.Frame;
 import java.awt.Label;
 import java.awt.Menu;
@@ -51,6 +51,27 @@ static Choice choModificacionEmpleado = new Choice();
 static TextField txtNombreModificar= new TextField(20);
 static Button btnConfirmarMod = new Button("Aceptar");
 static Button btnVolverMod = new Button("Volver");
+//Dialog Modificación
+static Dialog dMod =new Dialog(fModificacionEmpleado, "Modificación realizada con éxito", true);
+static Button btnDMod = new Button("Volver");
+Label dLMod = new Label("Éxito");
+
+
+
+
+/*
+ * avisoAltas.setLayout(new FlowLayout()); avisoAltas.setSize(300, 160);
+ * avisoAltas.setResizable(false); avisoAltas.addWindowListener(this);
+ * avisoAltas.add(new Label("¿Es correcta la información proporcionada?"));
+ * 
+ * Button btnDiAceptar = new Button("Aceptar");
+ * btnDiAceptar.addActionListener(this); avisoAltas.add(btnDiAceptar);
+ * 
+ * Button btnDiCancelar = new Button("Cancelar");
+ * btnDiCancelar.addActionListener(this); avisoAltas.add(btnDiCancelar);
+ * 
+ * avisoAltas.setLocationRelativeTo(null); avisoAltas.setVisible(false);
+ */
 
 //Frame Consulta
 static Frame fConsultaEmpleado = new Frame("modificacionEmpleados");
@@ -85,6 +106,7 @@ public Vista()
 	fNuevoEmpleado.add(txtNombreEmpleado);
 	fNuevoEmpleado.add(btnAceptarNuevo);
 	
+
 	
 	
 	//Modificacion empleado
@@ -94,6 +116,9 @@ public Vista()
 	fModificacionEmpleado.add(txtNombreModificar);
 	fModificacionEmpleado.add(btnConfirmarMod);
 	fModificacionEmpleado.add(btnVolverMod);
+	
+	dMod.add(btnDMod);
+	dMod.add(dLMod);
 		
 	//Consulta del Empleado
 	fConsultaEmpleado.add(lblConsultaEmpleado);
