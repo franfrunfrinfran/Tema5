@@ -1,7 +1,10 @@
 package es.Studium.Empresa;
 
+
+
 import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -10,6 +13,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Controlador extends Frame implements WindowListener, ActionListener {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public Controlador() {
 		Vista.menuPrincipal.setLayout(new FlowLayout());
@@ -27,18 +35,6 @@ public class Controlador extends Frame implements WindowListener, ActionListener
 		Vista.mnEliminar.addActionListener(this);
 		Vista.mnModificar.addActionListener(this);
 
-		// Creación del dialog
-		/*
-		 * d.setLayout(new FlowLayout()); d.setSize(180, 150);
-		 * d.setLocationRelativeTo(null);
-		 */
-
-		// Añadir el botón
-		/*
-		 * d.add(btnOK); //Para cerrar el dialog d.addWindowListener(this);
-		 * 
-		 * btnOK.addActionListener(this);
-		 */
 
 		// NuevoEmpleado
 		Vista.fNuevoEmpleado.setTitle("Nuevo Empleado");
@@ -55,6 +51,7 @@ public class Controlador extends Frame implements WindowListener, ActionListener
 		Vista.fModificacionEmpleado.setLayout(new FlowLayout());
 
 		Vista.fModificacionEmpleado.setSize(400, 100);
+		Vista.fModificacionEmpleado.addWindowListener(this);
 		Vista.fModificacionEmpleado.setLocationRelativeTo(null);
 
 		Vista.dMod.setTitle("Éxito");
@@ -75,6 +72,7 @@ public class Controlador extends Frame implements WindowListener, ActionListener
 		Vista.fEliminarEmpleado.setLayout(new FlowLayout());
 
 		Vista.fEliminarEmpleado.setSize(220, 150);
+		Vista.fEliminarEmpleado.addWindowListener(this);
 		Vista.fEliminarEmpleado.setLocationRelativeTo(null);
 
 	}
@@ -86,13 +84,17 @@ public class Controlador extends Frame implements WindowListener, ActionListener
 	public void actionPerformed(ActionEvent ae) {
 		Object a;
 		a = ae.getSource();
-		// Ventana nuevo
+
 		if (a.equals(Vista.mnNuevo)) {
 			Vista.fNuevoEmpleado.setVisible(true);
 			Vista.btnAceptarNuevo.addActionListener(this);
 		}
+
+		// Ventana nuevo
+
 		// Botón AceptarNuevoEmpleado
-		else if (a.equals(Vista.btnAceptarNuevo)) {
+		else if (a.equals(Vista.btnAceptarNuevo))
+		{		
 			try {
 				Class.forName(Modelo.driver);
 				Modelo.connection = DriverManager.getConnection(Modelo.url, Modelo.usuario, Modelo.clave);
@@ -113,7 +115,18 @@ public class Controlador extends Frame implements WindowListener, ActionListener
 					System.out.println("Error 3-" + e.getMessage());
 				}
 			}
+
+			Vista.avisoAltas.setLayout(new FlowLayout());
+			Vista.avisoAltas.setSize(300, 160);
+			Vista.avisoAltas.setResizable(false);
+			Vista.avisoAltas.addWindowListener(this);
+			Vista.avisoAltas.add(new Label("Alta correcta"));
+
+			Vista.avisoAltas.setLocationRelativeTo(null); 
+			Vista.avisoAltas.setVisible(true);
+
 		}
+
 		// Ventana consultar
 		else if (a.equals(Vista.mnConsultar)) {
 			Vista.fConsultaEmpleado.setVisible(true);
@@ -132,7 +145,7 @@ public class Controlador extends Frame implements WindowListener, ActionListener
 								Modelo.rs.getInt("idEmpleado") + " - " + Modelo.rs.getString("nombreEmpleado"));
 					} else {
 						Vista.areaConsulta.setText(Vista.areaConsulta.getText() + "\n" + Modelo.rs.getInt("idEmpleado")
-								+ " - " + Modelo.rs.getString("nombreEmpleado"));
+						+ " - " + Modelo.rs.getString("nombreEmpleado"));
 					}
 				}
 			} catch (ClassNotFoundException cnfe) {
@@ -185,11 +198,11 @@ public class Controlador extends Frame implements WindowListener, ActionListener
 			}
 		}
 		// Botón volver
-		else if (a.equals(Vista.btnEliminarVolver))// Investigar porqué hay que darle al botón 2 veces para que funcione
+		else if (a.equals(Vista.btnEliminarVolver))
 		{
 			Vista.fEliminarEmpleado.setVisible(false);
 		}
-		// Boton Aceptar
+		// Boton Eliminar
 		else if (a.equals(Vista.btnEliminarConfirmar)) {
 			try {
 				String[] ESeleccionado = Vista.choEliminarEmpleado.getSelectedItem().split("-");
@@ -213,12 +226,24 @@ public class Controlador extends Frame implements WindowListener, ActionListener
 					System.out.println("Error 3-" + e.getMessage());
 				}
 			}
+			Vista.dBaja.setLayout(new FlowLayout());
+			Vista.dBaja.setSize(300, 160);
+			Vista.dBaja.setResizable(false);
+			Vista.dBaja.addWindowListener(this);
+			Vista.dBaja.add(new Label("Baja correcta"));
+			Vista.btnDBaja.addActionListener(this);
+			Vista.dBaja.add(Vista.btnDBaja);
+			Vista.dBaja.setLocationRelativeTo(null); 
+			Vista.dBaja.setVisible(true);
+		}
+		else if (a.equals(Vista.btnDBaja)) {
+
+			Vista.dBaja.setVisible(false);
 
 		}
 		// Ventana modificar
-		else if (a.equals(Vista.btnVolverMod)) {
-			Vista.fModificacionEmpleado.setVisible(false);
-		} else if (a.equals(Vista.mnModificar)) {
+
+		else if (a.equals(Vista.mnModificar)) {
 			Vista.fModificacionEmpleado.setVisible(true);
 			Vista.btnVolverMod.addActionListener(this);
 			Vista.btnConfirmarMod.addActionListener(this);
@@ -249,13 +274,12 @@ public class Controlador extends Frame implements WindowListener, ActionListener
 					System.out.println("Error 3-" + e.getMessage());
 				}
 			}
-		} else if (a.equals(Vista.btnConfirmarMod)) {
-			Vista.dMod.setVisible(true);
-			Vista.btnDMod.addActionListener(this);
-			 if (a.equals(Vista.btnDMod)) {
-				Vista.dMod.setVisible(false);
-			
-			}
+		}
+
+		else if (a.equals(Vista.btnConfirmarMod)) {
+
+
+
 			try {
 				int idEmpleado = Integer.parseInt(Vista.choModificacionEmpleado.getSelectedItem().split("-")[0]);
 				String nombre = Vista.txtNombreModificar.getText();
@@ -280,11 +304,22 @@ public class Controlador extends Frame implements WindowListener, ActionListener
 					System.out.println("Error 3-" + e.getMessage());
 				}
 			}
-			
+			Vista.dMod.setLayout(new FlowLayout());
+			Vista.dMod.setSize(300, 160);
+			Vista.dMod.setResizable(false);
+			Vista.dMod.addWindowListener(this);
+			Vista.dMod.add(new Label("Modificación correcta"));
+			Vista.btnDMod.addActionListener(this);
+			Vista.dMod.add(Vista.btnDMod);
+			Vista.dMod.setLocationRelativeTo(null); 
+			Vista.dMod.setVisible(true);
+
 
 		}
 		else if (a.equals(Vista.btnDMod)) {
+
 			Vista.dMod.setVisible(false);
+
 		}
 
 	}
@@ -296,18 +331,26 @@ public class Controlador extends Frame implements WindowListener, ActionListener
 	}
 
 	public void windowClosing(WindowEvent e) {
-		if (Vista.fNuevoEmpleado.hasFocus()) {
+		if (Vista.fNuevoEmpleado.isActive()) {
 			Vista.fNuevoEmpleado.setVisible(false);
 
-		} else if (Vista.fModificacionEmpleado.hasFocus()) {
+		}
+		else if (Vista.avisoAltas.isActive()) {
+			Vista.avisoAltas.setVisible(false);
+		}
+		else if (Vista.fModificacionEmpleado.isActive()) {
 			Vista.fModificacionEmpleado.setVisible(false);
-		} else if (Vista.dMod.hasFocus()) {
+		} else if (Vista.dMod.isActive()) {
 			Vista.dMod.setVisible(false);
 		} else if (Vista.fConsultaEmpleado.isActive()) {
 			Vista.fConsultaEmpleado.setVisible(false);
 		} else if (Vista.fEliminarEmpleado.isActive()) {
 			Vista.fEliminarEmpleado.setVisible(false);
-		} else {
+		} 
+		else if (Vista.dBaja.isActive()) {
+			Vista.dBaja.setVisible(false);
+		}
+		else {
 			System.exit(0);
 		}
 

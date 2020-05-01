@@ -33,10 +33,11 @@ static MenuItem mnConsultar = new MenuItem("Consultar");
 static MenuItem mnEliminar = new MenuItem ("Eliminar");
 static MenuItem mnModificar = new MenuItem ("Modificar");
 //Declarar un dialogo y un texto vacío
-/*Dialog d = new Dialog(this, "Aviso", true);
-Label texto = new Label("");*/
-//Crear botón para el dialog
-//Button btnOK = new Button("OK");
+
+Label texto = new Label("");
+
+//Crear botón para el dialog ALtas
+static Dialog avisoAltas = new Dialog(Vista.fNuevoEmpleado, "Aviso", true);
 
 //Frame NuevoEmpleado
 static Frame fNuevoEmpleado = new Frame("altasEmpleados");
@@ -51,33 +52,23 @@ static Choice choModificacionEmpleado = new Choice();
 static TextField txtNombreModificar= new TextField(20);
 static Button btnConfirmarMod = new Button("Aceptar");
 static Button btnVolverMod = new Button("Volver");
+
 //Dialog Modificación
 static Dialog dMod =new Dialog(fModificacionEmpleado, "Modificación realizada con éxito", true);
 static Button btnDMod = new Button("Volver");
-Label dLMod = new Label("Éxito");
+static Label dLMod = new Label("Éxito");
 
-
-
-
-/*
- * avisoAltas.setLayout(new FlowLayout()); avisoAltas.setSize(300, 160);
- * avisoAltas.setResizable(false); avisoAltas.addWindowListener(this);
- * avisoAltas.add(new Label("¿Es correcta la información proporcionada?"));
- * 
- * Button btnDiAceptar = new Button("Aceptar");
- * btnDiAceptar.addActionListener(this); avisoAltas.add(btnDiAceptar);
- * 
- * Button btnDiCancelar = new Button("Cancelar");
- * btnDiCancelar.addActionListener(this); avisoAltas.add(btnDiCancelar);
- * 
- * avisoAltas.setLocationRelativeTo(null); avisoAltas.setVisible(false);
- */
 
 //Frame Consulta
 static Frame fConsultaEmpleado = new Frame("modificacionEmpleados");
 Label lblConsultaEmpleado = new Label("Nombre a consultar");
 static TextArea areaConsulta = new TextArea(10, 20);
 static Button btnVolverCon = new Button("Volver");
+
+//Dialog bajas
+static Dialog dBaja =new Dialog(fModificacionEmpleado, "Modificación realizada con éxito", true);
+static Button btnDBaja = new Button("Volver");
+static Label dLBaja = new Label("Éxito");
 
 //Frame eliminar
 static Frame fEliminarEmpleado = new Frame("eliminarEmpleados");
@@ -107,7 +98,6 @@ public Vista()
 	fNuevoEmpleado.add(btnAceptarNuevo);
 	
 
-	
 	
 	//Modificacion empleado
 	
